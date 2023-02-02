@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:getx_state/controller/controller.dart';
+import 'package:lottie/lottie.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(MyApp());
 }
 
@@ -100,15 +103,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: const Text('LOG IN'),
                     onPressed: () {
                       _controller.handleLoading();
-                      _controller.login(_emailController.text, _passwordController.text);
+                      _controller.login(
+                        context,
+                        _emailController.text,
+                        _passwordController.text,
+                      );
                     }),
                 const SizedBox(
                   height: 20,
                 ),
                 if (_controller.loading.value)
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                  Lottie.asset(
+                    'images/loader.json',
+                    repeat: true,
+                    reverse: false,
+                    animate: true,
+                  ),
+                // const Center(
+                //   child: CircularProgressIndicator(),
+                // ),
               ],
             ),
           ),
