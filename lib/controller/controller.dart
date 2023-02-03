@@ -21,40 +21,65 @@ class Controller extends GetxController {
     ApiService().apiLogin(formData).then((value) {
       handleLoading();
 
-      if (value.status) {
-        print(value.message);
-        print(value.user?.fullname);
-        _session.write("fullname", value.user?.fullname);
+      if (_session.read("fullname") == null) {
+        if (value.status) {
+          print(value.message);
+          print(value.user?.fullname);
+          _session.write("fullname", value.user?.fullname);
 
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text("Welcome, ${_session.read("fullname")}"),
-            content: Lottie.asset(
-              'images/success.json',
-              repeat: false,
-              reverse: false,
-              animate: true,
-              width: 100,
-              height: 100,
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Ok"),
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text("Welcome, ${_session.read("fullname")}"),
+              content: Lottie.asset(
+                'images/success.json',
+                repeat: false,
+                reverse: false,
+                animate: true,
+                width: 100,
+                height: 100,
               ),
-            ],
-          ),
-        );
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                ),
+              ],
+            ),
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(value.message),
+              content: Lottie.asset(
+                'images/failed.json',
+                repeat: false,
+                reverse: false,
+                animate: true,
+                width: 100,
+                height: 100,
+              ),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                ),
+              ],
+            ),
+          );
+        }
       } else {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text(value.message),
+            title: Text("Sudah Pernah login ya , ${_session.read("fullname")}"),
             content: Lottie.asset(
-              'images/failed.json',
+              'images/success.json',
               repeat: false,
               reverse: false,
               animate: true,

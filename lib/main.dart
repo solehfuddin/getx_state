@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
   final _controller = Get.find<Controller>();
+  final _session = GetStorage();
 
   @override
   Widget build(BuildContext context) {

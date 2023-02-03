@@ -28,8 +28,8 @@ class ApiService {
       responseApi = ResponseApi.fromJson(response.data);
     } on DioError catch (e) {
       String sts = "";
-      if (e.response?.statusCode == 404) {
-        sts = "Data not found";
+      if (e.response?.statusCode == 400) {
+        sts = "Wrong username or password";
       } else if (e.response?.statusCode == 403) {
         sts = "Invalid API key";
       } else {

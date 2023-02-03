@@ -1,5 +1,4 @@
 class User {
-  final String userId;
   final String username;
   final String fullname;
   final String nik;
@@ -10,7 +9,6 @@ class User {
   final String createdAt;
 
   User(
-    this.userId,
     this.username,
     this.fullname,
     this.nik,
@@ -22,8 +20,7 @@ class User {
   );
 
   User.fromJson(Map<String, dynamic> json)
-      : userId = json['user_id'],
-        username = json['username'],
+      : username = json['username'],
         fullname = json['fullname'],
         nik = json['nik'],
         lat = json['lat'] ?? "",
@@ -33,7 +30,6 @@ class User {
         createdAt = json['created_at'];
 
   Map<String, dynamic> toJson() => {
-        'user_id': userId,
         'username': username,
         'fullname' : fullname,
         'nik' : nik,
